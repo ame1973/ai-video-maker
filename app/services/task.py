@@ -45,6 +45,13 @@ def start(task_id, params: VideoParams):
     n_threads = params.n_threads
     max_clip_duration = params.video_clip_duration
 
+    video_title = params.video_title
+    if not video_title:
+        video_title = video_subject
+    video_tags = params.video_tags
+    if not video_tags:
+        video_tags = [video_subject]
+
     logger.info("\n\n## generating video script")
     video_script = params.video_script.strip()
     if not video_script:
@@ -70,7 +77,9 @@ def start(task_id, params: VideoParams):
     script_file = path.join(utils.task_dir(task_id), f"script.json")
     script_data = {
         "script": video_script,
-        "search_terms": video_terms
+        "search_terms": video_terms,
+        "title": video_title,
+        "tags": video_tags,
     }
 
     with open(script_file, "w", encoding="utf-8") as f:

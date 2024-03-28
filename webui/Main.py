@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="MoneyPrinterTurbo", page_icon="🤖", layout="wide",
+st.set_page_config(page_title="HuanXiang Video Test", page_icon="🤖", layout="wide",
                    initial_sidebar_state="auto")
 import sys
 import os
@@ -14,7 +14,7 @@ hide_streamlit_style = """
 <style>#root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}</style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-st.title("MoneyPrinterTurbo")
+st.title("HuanXiang Video Test")
 st.write(
     "⚠️ 先在 **config.toml** 中设置 `pexels_api_keys` 和 `llm_provider` 参数，根据不同的 llm_provider，配置对应的 **API KEY**"
 )
@@ -31,7 +31,10 @@ if 'video_script' not in st.session_state:
     st.session_state['video_script'] = ''
 if 'video_terms' not in st.session_state:
     st.session_state['video_terms'] = ''
-
+if 'video_title' not in st.session_state:
+    st.session_state['video_title'] = ''
+if 'video_tags' not in st.session_state:
+    st.session_state['video_tags'] = ''
 
 def get_all_fonts():
     fonts = []
@@ -112,13 +115,17 @@ with left_panel:
         if cfg.video_language:
             st.write(f"设置AI输出文案语言为: **:red[{cfg.video_language}]**")
 
-        if st.button("点击使用AI根据**主题**生成 【视频文案】 和 【视频关键词】", key="auto_generate_script"):
+        if st.button("点击使用AI根据**主题**生成", key="auto_generate_script"):
             with st.spinner("AI正在生成视频文案和关键词..."):
                 script = llm.generate_script(video_subject=cfg.video_subject, language=cfg.video_language)
                 terms = llm.generate_terms(cfg.video_subject, script)
+                title = llm.generate_title(cfg.video_subject, script)
+                tags = llm.generate_hashtags(cfg.video_subject, script)
                 st.toast('AI生成成功')
                 st.session_state['video_script'] = script
                 st.session_state['video_terms'] = ", ".join(terms)
+                st.session_state['video_title'] = title
+                st.session_state['video_tags'] = " ".join(tags)
 
         cfg.video_script = st.text_area(
             "视频文案（:blue[①可不填，使用AI生成  ②合理使用标点断句，有助于生成字幕]）",
@@ -138,6 +145,15 @@ with left_panel:
         cfg.video_terms = st.text_area(
             "视频关键词（:blue[①可不填，使用AI生成 ②用**英文逗号**分隔，只支持英文]）",
             value=st.session_state['video_terms'],
+            height=50)
+
+        cfg.video_title = st.text_input(
+            "视频標題",
+            value=st.session_state['video_title']).strip()
+
+        cfg.video_tags = st.text_area(
+            "视频 Hashtags",
+            value=st.session_state['video_tags'],
             height=50)
 
 with middle_panel:

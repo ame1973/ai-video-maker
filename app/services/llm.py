@@ -128,6 +128,9 @@ Generate a script for a video, depending on the subject of the video.
         response = re.sub(r"\[.*\]", "", response)
         response = re.sub(r"\(.*\)", "", response)
 
+        response = response + "想了解更多有趣的知識。盡在《奇趣知識窗》頻道。我們下次見。"
+        logger.info(f"new response: {response}")
+
         # Split the script into paragraphs
         paragraphs = response.split("\n\n")
 
@@ -138,7 +141,7 @@ Generate a script for a video, depending on the subject of the video.
         final_script = "\n\n".join(selected_paragraphs)
 
         # Print to console the number of paragraphs used
-        # logger.info(f"number of paragraphs used: {len(selected_paragraphs)}")
+        logger.info(f"number of paragraphs used: {len(selected_paragraphs)}")
     else:
         logging.error("gpt returned an empty response")
 
@@ -196,6 +199,88 @@ Please note that you must use English for generating video search terms; Chinese
 
     logger.success(f"completed: \n{search_terms}")
     return search_terms
+
+
+def generate_title(video_subject: str, video_script: str) -> str:
+    prompt = f"""
+# Role: Video Title Generator
+
+## Goals:
+Generate title for stock videos, depending on the subject of a video.
+
+## Constrains:
+1. The title must conform to the video theme
+2. The title must conform to the video content
+3. The title is as short as possible
+4. The title can be shook
+5. The language of the title must be consistent with the video theme
+6. You only need to reply to the title body without additional answers.
+
+## Output Example:
+This is video title
+
+## Context:
+### Video Subject
+{video_subject}
+
+### Video Script
+{video_script}
+""".strip()
+
+    logger.info(f"subject: {video_subject}")
+    logger.debug(f"prompt: \n{prompt}")
+    response = _generate_response(prompt)
+    logger.success(f"completed: \n{response}")
+    return response
+
+
+def generate_hashtags(video_subject: str, video_script: str, amount: int = 10) -> List[str]:
+    prompt = f"""
+# Role: Video hashtag Generator
+
+## Goals:
+Generate {amount} hashtags for stock videos, depending on the subject of a video.
+
+## Constrains:
+1. the hashtags are to be returned as a json-array of strings.
+2. each hashtags should consist of 1 words, always add the main subject of the video.
+3. you must only return the json-array of strings. you must not return anything else. you must not return the script.
+4. the search terms must be related to the subject of the video.
+
+## Output Example:
+["#hashtag1", "#hashtag2", "#hashtag3","#hashtag4","#hashtag5"]
+
+## Context:
+### Video Subject
+{video_subject}
+
+### Video Script
+{video_script}
+""".strip()
+
+    logger.info(f"subject: {video_subject}")
+    logger.debug(f"prompt: \n{prompt}")
+    response = _generate_response(prompt)
+    hashtags = []
+
+    try:
+        hashtags = json.loads(response)
+        if not isinstance(hashtags, list) or not all(isinstance(term, str) for term in hashtags):
+            raise ValueError("response is not a list of strings.")
+
+    except (json.JSONDecodeError, ValueError):
+        # logger.warning(f"gpt returned an unformatted response. attempting to clean...")
+        # Attempt to extract list-like string and convert to list
+        match = re.search(r'\["(?:[^"\\]|\\.)*"(?:,\s*"[^"\\]*")*\]', response)
+        if match:
+            try:
+                hashtags = json.loads(match.group())
+            except json.JSONDecodeError:
+                logger.error(f"could not parse response: {response}")
+                return []
+
+    logger.success(f"completed: \n{hashtags}")
+    return hashtags
 
 
 if __name__ == "__main__":
