@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="HuanXiang Video Test", page_icon="🤖", layout="wide",
+st.set_page_config(page_title="Video Maker Turbo", page_icon="🤖", layout="wide",
                    initial_sidebar_state="auto")
 import sys
 import os
@@ -14,7 +14,7 @@ hide_streamlit_style = """
 <style>#root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}</style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-st.title("HuanXiang Video Test")
+st.title("Video Maker Turbo")
 st.write(
     "⚠️ 先在 **config.toml** 中设置 `pexels_api_keys` 和 `llm_provider` 参数，根据不同的 llm_provider，配置对应的 **API KEY**"
 )
