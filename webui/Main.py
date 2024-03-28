@@ -122,7 +122,7 @@ with left_panel:
                 title = llm.generate_title(cfg.video_subject, script)
                 tags = llm.generate_hashtags(cfg.video_subject, script)
                 st.toast('AI生成成功')
-                st.session_state['video_script'] = script
+                st.session_state['video_script'] = title + "。" + script
                 st.session_state['video_terms'] = ", ".join(terms)
                 st.session_state['video_title'] = title
                 st.session_state['video_tags'] = " ".join(tags)
@@ -130,7 +130,7 @@ with left_panel:
         cfg.video_script = st.text_area(
             "视频文案（:blue[①可不填，使用AI生成  ②合理使用标点断句，有助于生成字幕]）",
             value=st.session_state['video_script'],
-            height=230
+            height=150
         )
         if st.button("点击使用AI根据**文案**生成【视频关键词】", key="auto_generate_terms"):
             if not cfg.video_script:
