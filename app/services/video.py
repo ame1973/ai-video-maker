@@ -181,7 +181,8 @@ def generate_video(video_path: str,
     if params.subtitle_position == "top":
         position_height = video_height * 0.1
     elif params.subtitle_position == "bottom":
-        position_height = video_height * 0.9
+        # 調整字幕位置在底部的相對高度
+        position_height = video_height * 0.8
     else:
         position_height = "center"
 
