@@ -12,7 +12,8 @@ def tts(text: str, voice_name: str, voice_file: str) -> [SubMaker, None]:
     logger.info(f"start, voice name: {voice_name}")
     try:
         async def _do() -> SubMaker:
-            communicate = edge_tts.Communicate(text, voice_name)
+            # rate: "+25%" 表示语速增加25%
+            communicate = edge_tts.Communicate(text, voice_name, rate="+20%")
             sub_maker = edge_tts.SubMaker()
             with open(voice_file, "wb") as file:
                 async for chunk in communicate.stream():
