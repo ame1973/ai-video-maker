@@ -219,10 +219,38 @@ with left_panel:
 
         if st.button(tr("Generate Video Script and Keywords"), key="auto_generate_script"):
             with st.spinner(tr("Generating Video Script and Keywords")):
-                script = llm.generate_script(video_subject=cfg.video_subject, language=cfg.video_language)
-                terms = llm.generate_terms(cfg.video_subject, script)
-                title = llm.generate_title(cfg.video_subject, script)
-                tags = llm.generate_hashtags(cfg.video_subject, script)
+                generate_script_success = False
+                generate_terms_success = False
+                generate_title_success = False
+                generate_hashtags_success = False
+                while not generate_script_success:
+                    try:
+                        script = llm.generate_script(video_subject=cfg.video_subject, language=cfg.video_language)
+                        generate_script_success = True
+                    except Exception as e:
+                        st.error(f"AI生成失败，正在重試generate_script: {e}")
+
+                while not generate_terms_success:
+                    try:
+                        terms = llm.generate_terms(cfg.video_subject, script)
+                        generate_terms_success = True
+                    except Exception as e:
+                        st.error(f"AI生成失败，正在重試generate_terms: {e}")
+
+                while not generate_title_success:
+                    try:
+                        title = llm.generate_title(cfg.video_subject, script)
+                        generate_title_success = True
+                    except Exception as e:
+                        st.error(f"AI生成失败，正在重試generate_title: {e}")
+
+                while not generate_hashtags_success:
+                    try:
+                        tags = llm.generate_hashtags(cfg.video_subject, script)
+                        generate_hashtags_success = True
+                    except Exception as e:
+                        st.error(f"AI生成失败，正在重試generate_hashtags: {e}")
+
                 st.session_state['video_script'] = title + "。" + script
                 st.session_state['video_terms'] = ", ".join(terms)
                 st.session_state['video_title'] = title
