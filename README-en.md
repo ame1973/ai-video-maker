@@ -1,6 +1,15 @@
-# MoneyPrinterTurbo 💸
+<div align="center">
+<h1 align="center">MoneyPrinterTurbo 💸</h1>
 
-[Chinese 简体中文](README.md)
+<p align="center">
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/stargazers"><img src="https://img.shields.io/github/stars/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="Stargazers"></a>
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/issues"><img src="https://img.shields.io/github/issues/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="Issues"></a>
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/network/members"><img src="https://img.shields.io/github/forks/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="Forks"></a>
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/blob/main/LICENSE"><img src="https://img.shields.io/github/license/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="License"></a>
+</p>
+
+English | [简体中文](README.md)
+
 
 > Thanks to [RootFTW](https://github.com/Root-FTW) for the translation
 
@@ -8,7 +17,8 @@
 Simply provide a **topic** or **keyword** for a video, and it will automatically generate the video copy, video
 materials, video subtitles, and video background music before synthesizing a high-definition short video.
 
-![](docs/webui.jpg)
+![](docs/webui-en.jpg)
+</div>
 
 ## Special Thanks 🙏
 
@@ -38,8 +48,8 @@ https://reccloud.com
   supports `subtitle outlining`
 - [x] Supports **background music**, either random or specified music files, with adjustable `background music volume`
 - [x] Video material sources are **high-definition** and **royalty-free**
-- [x] Supports integration with various models such as **OpenAI**, **moonshot**, **Azure**, **gpt4free**, **one-api**, *
-  *qianwen**
+- [x] Supports integration with various models such as **OpenAI**, **moonshot**, **Azure**, **gpt4free**, **one-api**,
+  **qianwen**
   and more
 
 ### Future Plans 📅
@@ -54,23 +64,37 @@ https://reccloud.com
 
 ### Portrait 9:16
 
-▶️ How to Add Fun to Your Life
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/a84d33d5-27a2-4aba-8fd0-9fb2bd91c6a6
-
-▶️ What is the Meaning of Life
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/112c9564-d52b-4472-99ad-970b75f66476
+<table>
+<thead>
+<tr>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji> How to Add Fun to Your Life </th>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji> What is the Meaning of Life</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/a84d33d5-27a2-4aba-8fd0-9fb2bd91c6a6"></video></td>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/112c9564-d52b-4472-99ad-970b75f66476"></video></td>
+</tr>
+</tbody>
+</table>
 
 ### Landscape 16:9
 
-▶️ What is the Meaning of Life
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/346ebb15-c55f-47a9-a653-114f08bb8073
-
-▶️ Why Exercise
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/271f2fae-8283-44a0-8aa0-0ed8f9a6fa87
+<table>
+<thead>
+<tr>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji> What is the Meaning of Life</th>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji> Why Exercise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/346ebb15-c55f-47a9-a653-114f08bb8073"></video></td>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/271f2fae-8283-44a0-8aa0-0ed8f9a6fa87"></video></td>
+</tr>
+</tbody>
+</table>
 
 ## Installation & Deployment 📥
 
@@ -86,11 +110,6 @@ pip install -r requirements.txt
 ```
 
 ## Quick Start 🚀
-
-### Video Tutorials
-
-- Complete usage demonstration: https://v.douyin.com/iFhnwsKY/
-- How to deploy on Windows: https://v.douyin.com/iFyjoW3M
 
 ### Prerequisites
 
@@ -159,7 +178,7 @@ sh webui.sh
 After launching, the browser will open automatically
 
 The effect is shown in the following image:
-![](docs/webui.jpg)
+![](docs/webui-en.jpg)
 
 ### Launch the API Service 🚀
 

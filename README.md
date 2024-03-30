@@ -1,10 +1,20 @@
-# MoneyPrinterTurbo 💸
+<div align="center">
+<h1 align="center">MoneyPrinterTurbo 💸</h1>
 
-[English](README-en.md)
+<p align="center">
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/stargazers"><img src="https://img.shields.io/github/stars/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="Stargazers"></a>
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/issues"><img src="https://img.shields.io/github/issues/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="Issues"></a>
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/network/members"><img src="https://img.shields.io/github/forks/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="Forks"></a>
+  <a href="https://github.com/harry0703/MoneyPrinterTurbo/blob/main/LICENSE"><img src="https://img.shields.io/github/license/harry0703/MoneyPrinterTurbo.svg?style=for-the-badge" alt="License"></a>
+</p>
+
+[English](README-en.md) | 简体中文
 
 只需提供一个视频 **主题** 或 **关键词** ，就可以全自动生成视频文案、视频素材、视频字幕、视频背景音乐，然后合成一个高清的短视频。
 
 ![](docs/webui.jpg)
+
+</div>
 
 ## 特别感谢 🙏
 
@@ -45,23 +55,37 @@
 
 ### 竖屏 9:16
 
-▶️ 《如何增加生活的乐趣》
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/a84d33d5-27a2-4aba-8fd0-9fb2bd91c6a6
-
-▶️ 《生命的意义是什么》
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/112c9564-d52b-4472-99ad-970b75f66476
+<table>
+<thead>
+<tr>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji> 《如何增加生活的乐趣》</th>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji> 《生命的意义是什么》</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/a84d33d5-27a2-4aba-8fd0-9fb2bd91c6a6"></video></td>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/112c9564-d52b-4472-99ad-970b75f66476"></video></td>
+</tr>
+</tbody>
+</table>
 
 ### 横屏 16:9
 
-▶️《生命的意义是什么》
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/346ebb15-c55f-47a9-a653-114f08bb8073
-
-▶️《为什么要运动》
-
-https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/271f2fae-8283-44a0-8aa0-0ed8f9a6fa87
+<table>
+<thead>
+<tr>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji>《生命的意义是什么》</th>
+<th align="center"><g-emoji class="g-emoji" alias="arrow_forward">▶️</g-emoji>《为什么要运动》</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/346ebb15-c55f-47a9-a653-114f08bb8073"></video></td>
+<td align="center"><video src="https://github.com/harry0703/MoneyPrinterTurbo/assets/4928832/271f2fae-8283-44a0-8aa0-0ed8f9a6fa87"></video></td>
+</tr>
+</tbody>
+</table>
 
 ## 安装部署 📥
 
@@ -190,10 +214,10 @@ python main.py
 ## 常见问题 🤔
 
 ### ❓AttributeError: 'str' object has no attribute 'choices'`
+
 这个问题是由于 OpenAI 或者其他 LLM，没有返回正确的回复导致的。
 
 大概率是网络原因， 使用 **VPN**，或者设置 `openai_base_url` 为你的代理 ，应该就可以解决了。
-
 
 ### ❓RuntimeError: No ffmpeg exe could be found
 
@@ -255,6 +279,44 @@ if you are in China, please use a VPN.
 
 感谢 [@chenhengzh](https://github.com/chenhengzh)的研究探索
 
+### ❓OSError: [Errno 24] Too many open files
+
+[issue 100](https://github.com/harry0703/MoneyPrinterTurbo/issues/100)
+
+这个问题是由于系统打开文件数限制导致的，可以通过修改系统的文件打开数限制来解决。
+
+查看当前限制
+
+```shell
+ulimit -n
+```
+
+如果过低，可以调高一些，比如
+
+```shell
+ulimit -n 10240
+```
+
+### ❓AttributeError: module 'PIL.Image' has no attribute 'ANTIALIAS'
+
+[issue 101](https://github.com/harry0703/MoneyPrinterTurbo/issues/101),
+[issue 83](https://github.com/harry0703/MoneyPrinterTurbo/issues/83),
+[issue 70](https://github.com/harry0703/MoneyPrinterTurbo/issues/70)
+
+先看下当前的 Pillow 版本是多少
+
+```shell
+pip list |grep Pillow
+```
+
+如果是 10.x 的版本，可以尝试下降级看看，有用户反馈降级后正常
+
+```shell
+pip uninstall Pillow
+pip install Pillow==9.5.0
+# 或者降级到 8.4.0
+pip install Pillow==8.4.0
+```
 
 ## 反馈建议 📢
 
