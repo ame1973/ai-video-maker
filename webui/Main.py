@@ -1,5 +1,7 @@
 import json
 import locale
+import random
+
 import streamlit as st
 import sys
 import os
@@ -225,28 +227,28 @@ with left_panel:
                 generate_hashtags_success = False
                 while not generate_script_success:
                     try:
-                        script = llm.generate_script(video_subject=cfg.video_subject, language=cfg.video_language)
+                        script = llm.generate_script(video_subject=params.video_subject, language=params.video_language)
                         generate_script_success = True
                     except Exception as e:
                         st.error(f"AI生成失败，正在重試generate_script: {e}")
 
                 while not generate_terms_success:
                     try:
-                        terms = llm.generate_terms(cfg.video_subject, script)
+                        terms = llm.generate_terms(params.video_subject, script)
                         generate_terms_success = True
                     except Exception as e:
                         st.error(f"AI生成失败，正在重試generate_terms: {e}")
 
                 while not generate_title_success:
                     try:
-                        title = llm.generate_title(cfg.video_subject, script)
+                        title = llm.generate_title(params.video_subject, script)
                         generate_title_success = True
                     except Exception as e:
                         st.error(f"AI生成失败，正在重試generate_title: {e}")
 
                 while not generate_hashtags_success:
                     try:
-                        tags = llm.generate_hashtags(cfg.video_subject, script)
+                        tags = llm.generate_hashtags(params.video_subject, script)
                         generate_hashtags_success = True
                     except Exception as e:
                         st.error(f"AI生成失败，正在重試generate_hashtags: {e}")
@@ -275,11 +277,11 @@ with left_panel:
             value=st.session_state['video_terms'],
             height=50)
 
-        cfg.video_title = st.text_input(
+        params.video_title = st.text_input(
             "视频標題",
             value=st.session_state['video_title']).strip()
 
-        cfg.video_tags = st.text_area(
+        params.video_tags = st.text_area(
             "视频 Hashtags",
             value=st.session_state['video_tags'],
             height=50)
@@ -313,7 +315,8 @@ with middle_panel:
                                           index=0)
     with st.container(border=True):
         st.write(tr("Audio Settings"))
-        voices = voice.get_all_voices(filter_locals=["zh-CN", "zh-HK", "zh-TW", "de-DE", "en-US"])
+        # voices = voice.get_all_voices(filter_locals=["zh-CN", "zh-HK", "zh-TW", "de-DE", "en-US"])
+        voices = voice.get_all_voices(filter_locals=["zh-CN"])
         friendly_names = {
             voice: voice.
             replace("Female", tr("Female")).
@@ -321,14 +324,16 @@ with middle_panel:
             replace("Neural", "") for
             voice in voices}
         saved_voice_name = cfg.get("voice_name", "")
-        saved_voice_name_index = 0
-        if saved_voice_name in friendly_names:
-            saved_voice_name_index = list(friendly_names.keys()).index(saved_voice_name)
-        else:
-            for i, voice in enumerate(voices):
-                if voice.lower().startswith(st.session_state['ui_language'].lower()):
-                    saved_voice_name_index = i
-                    break
+        # saved_voice_name_index is random
+        saved_voice_name_index = random.randint(0, len(voices) - 1)
+
+        # if saved_voice_name in friendly_names:
+        #     saved_voice_name_index = list(friendly_names.keys()).index(saved_voice_name)
+        # else:
+        #     for i, voice in enumerate(voices):
+        #         if voice.lower().startswith(st.session_state['ui_language'].lower()):
+        #             saved_voice_name_index = i
+        #             break
 
         selected_friendly_name = st.selectbox(tr("Speech Synthesis"),
                                               options=list(friendly_names.values()),
